@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchIP } from '../actions';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import Grid from './Grid';
 
 class App extends Component {
   componentDidMount() {
-    this.props.fetchIP();
     // this.props.verifyUserSession();
   }
 
@@ -99,17 +97,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    ip: state.ip,
-    isFetching: state.isFetching,
-  };
-}
+export default connect(state => ({
+  username: state.user.username
+}), dispatch => ({
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchIP: () => {
-    dispatch(fetchIP());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+}))(App);
