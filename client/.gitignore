@@ -1,0 +1,22 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# build (Remove for production deployment)
+/build
+
+# remove CSS from development
+/src/*.css
+/src/*.css.map
+/src/.sass-cache
+
+# misc
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+

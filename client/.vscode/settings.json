@@ -1,0 +1,14 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "files.exclude": {
+    "node_modules/": true,
+    "src/.sass-cache": true,
+    "src/index.css*": true,
+    "build/": true,
+    ".vscode/": true,
+    "config/": true,
+    "scripts/": true
+  },
+  "prettier.trailingComma": "all",
+  "prettier.singleQuote": true
+}
