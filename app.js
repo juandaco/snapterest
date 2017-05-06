@@ -9,14 +9,14 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const session = require('express-session');
-// const passport = require('passport');
+const passport = require('passport');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 
 /*
   Load Routes
 */
-// const authRouter = require('./routes/auth');
+const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 
 /*
@@ -69,13 +69,13 @@ app.use(
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 /*
   User Routes
 */
-// app.use('/auth', authRouter);
+app.use('/auth', authRouter);
 app.use('/api/users', usersRouter);
 
 /*
@@ -112,7 +112,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send('error');
 });
 
 const port = process.env.PORT || 4000;

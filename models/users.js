@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 // Customize to your Application Needs
 const User = new Schema({
-  username: String,
   id: Number,
-  name: String,
-}, {
-  timestamps: true,
+  username: String,
+  profilePicture: String,
+  pictures: [{ type: Schema.Types.ObjectId, ref: 'Picture' }],
+  liked: [{ type: Schema.Types.ObjectId, ref: 'Picture' }],
 });
 
 module.exports = mongoose.model('User', User);
