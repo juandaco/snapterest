@@ -43,10 +43,26 @@ export const getUserSession = () => dispatch => {
     credentials: 'include', 
   })
     .then(body => body.json())
-    .then(user => {
-      delete user._id;
-      delete user.__v;
-      dispatch(loginUser(user));
+    .then(resp => {
+      if (resp.message) {
+        delete resp.user._id;
+        delete resp.user.__v;
+        dispatch(loginUser(resp.user));
+      }
     })
     .catch(err => console.log(err));
 };
+
+export const sendLogout = () => dispatch => {
+  return fetch(`api/users/logout`, {
+    accept: 'application/json',
+    credentials: 'include', 
+  })
+    .then(body => body.json())
+    .then(resp => {
+      if (resp.message) {
+        dispatch(logoutUser());
+      }
+    })
+    .catch(err => console.log(err));
+}

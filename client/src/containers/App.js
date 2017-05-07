@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import Grid from './Grid';
-import { getUserSession } from '../actions/user';
+import { getUserSession, sendLogout } from '../actions/user';
 
 class App extends Component {
   componentDidMount() {
@@ -39,7 +39,7 @@ class App extends Component {
   };
 
   render() {
-    const { username, isUserLogged } = this.props;
+    const { username, isUserLogged, logout } = this.props;
     return (
       <div>
         <Navbar>
@@ -76,14 +76,14 @@ class App extends Component {
               </NavItem>
             </Nav>
             <Nav pullRight>
-              {isUserLogged ? <NavItem>@{username}</NavItem> : null}
+              {isUserLogged ? <NavItem disabled>@{username}</NavItem> : null}
               {isUserLogged
-                ? <NavItem title="Logout">
+                ? <NavItem title="Logout" onClick={() => logout()}>
                     <i className="fa fa-sign-out" aria-hidden="true" />
                     {' '}
                     Logout
                   </NavItem>
-                : <NavItem onClick={this.loginUser} title="Login">
+                : <NavItem title="Login" onClick={this.loginUser}>
                     <img
                       width={20}
                       src="logos/twitter_logo.svg"
@@ -109,6 +109,9 @@ export default connect(
   dispatch => ({
     getUserSession() {
       dispatch(getUserSession());
+    },
+    logout() {
+      dispatch(sendLogout());
     },
     getPictures() {},
   }),
