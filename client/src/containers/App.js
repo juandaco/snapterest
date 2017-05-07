@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import Grid from './Grid';
 import { getUserSession, sendLogout } from '../actions/user';
+import AppBar from '../components/AppBar';
+import Grid from './Grid';
 
 class App extends Component {
   componentDidMount() {
@@ -42,59 +42,12 @@ class App extends Component {
     const { username, isUserLogged, logout } = this.props;
     return (
       <div>
-        <Navbar>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <div className="nav-title">
-                <img
-                  width={45}
-                  src="logos/camera_logo.svg"
-                  alt="Snapterest Logo"
-                />
-                {' '}
-                Snapterest
-              </div>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav>
-              <NavItem>
-                <i className="fa fa-image" aria-hidden="true" />
-                {' '}
-                All
-              </NavItem>
-              <NavItem>
-                <i className="fa fa-camera-retro" aria-hidden="true" />
-                {' '}
-                My Snaps
-              </NavItem>
-              <NavItem>
-                <i className="fa fa-plus-circle" aria-hidden="true" />
-                {' '}
-                New
-              </NavItem>
-            </Nav>
-            <Nav pullRight>
-              {isUserLogged ? <NavItem disabled>@{username}</NavItem> : null}
-              {isUserLogged
-                ? <NavItem title="Logout" onClick={() => logout()}>
-                    <i className="fa fa-sign-out" aria-hidden="true" />
-                    {' '}
-                    Logout
-                  </NavItem>
-                : <NavItem title="Login" onClick={this.loginUser}>
-                    <img
-                      width={20}
-                      src="logos/twitter_logo.svg"
-                      alt="Twitter Logo"
-                    />
-                    {' '}
-                    Login
-                  </NavItem>}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        <AppBar 
+          username={username}
+          isUserLogged={isUserLogged}
+          loginUser={this.loginUser}
+          logout={logout}
+        />
         <Grid />
       </div>
     );

@@ -18,3 +18,32 @@
 
   background-color:#dcdcdc;
 }
+
+#username {
+  // display: inline-block;
+  font-family: 'Love Ya Like A Sister', cursive;
+  // font-size: 12px;
+  position: absolute;
+  right: 18vw;
+  top: 16px;
+  color: grey;
+}
+
+
+@media (max-width: 992px) {
+  #username {
+    right: 23vw; 
+  }
+}
+
+@media (max-width: 768px) {
+  #username {
+    right: 75px;
+  }
+}
+
+@media (max-width: 380px) {
+  #username {
+    display: none; 
+  }
+}

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Grid extends Component {
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div className="grid-container">
@@ -10,4 +15,4 @@ class Grid extends Component {
   }
 }
 
-export default Grid;
+export default connect(null)(Grid);
