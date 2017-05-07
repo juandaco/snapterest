@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import Grid from './Grid';
+import { getUserSession } from '../actions/user';
 
 class App extends Component {
   componentDidMount() {
-    // this.props.verifyUserSession();
+    this.props.getUserSession();
   }
 
   loginUser = () => {
@@ -29,7 +30,7 @@ class App extends Component {
       e => {
         if (e.data === 'closePopUp') {
           oAuthPopUp.close();
-          this.verifyUserSession();
+          this.props.getUserSession();
           window.removeEventListener('message', function(e) {}, false);
         }
       },
@@ -38,6 +39,7 @@ class App extends Component {
   };
 
   render() {
+    const { username, isUserLogged } = this.props;
     return (
       <div>
         <Navbar>
@@ -58,36 +60,38 @@ class App extends Component {
           <Navbar.Collapse>
             <Nav>
               <NavItem>
-                <i className="fa fa-image" aria-hidden="true"></i>
+                <i className="fa fa-image" aria-hidden="true" />
                 {' '}
                 All
               </NavItem>
               <NavItem>
-                <i className="fa fa-camera-retro" aria-hidden="true"></i>
+                <i className="fa fa-camera-retro" aria-hidden="true" />
                 {' '}
                 My Snaps
               </NavItem>
               <NavItem>
-                <i className="fa fa-plus-circle" aria-hidden="true"></i>
+                <i className="fa fa-plus-circle" aria-hidden="true" />
                 {' '}
                 New
               </NavItem>
             </Nav>
             <Nav pullRight>
-              <NavItem title="Logout">
-                <i className="fa fa-sign-out" aria-hidden="true"></i>
-                {' '}
-                Logout
-              </NavItem>
-              <NavItem onClick={this.loginUser} title="Login">
-                <img
-                  width={20}
-                  src="logos/twitter_logo.svg"
-                  alt="Twitter Logo"
-                />
-                {' '}
-                Login
-              </NavItem>
+              {isUserLogged ? <NavItem>@{username}</NavItem> : null}
+              {isUserLogged
+                ? <NavItem title="Logout">
+                    <i className="fa fa-sign-out" aria-hidden="true" />
+                    {' '}
+                    Logout
+                  </NavItem>
+                : <NavItem onClick={this.loginUser} title="Login">
+                    <img
+                      width={20}
+                      src="logos/twitter_logo.svg"
+                      alt="Twitter Logo"
+                    />
+                    {' '}
+                    Login
+                  </NavItem>}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -97,8 +101,15 @@ class App extends Component {
   }
 }
 
-export default connect(state => ({
-  username: state.user.username
-}), dispatch => ({
-
-}))(App);
+export default connect(
+  state => ({
+    username: state.user.username,
+    isUserLogged: Boolean(state.user.username),
+  }),
+  dispatch => ({
+    getUserSession() {
+      dispatch(getUserSession());
+    },
+    getPictures() {},
+  }),
+)(App);

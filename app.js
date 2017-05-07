@@ -49,9 +49,9 @@ mongoose.connect(process.env.MONGO_URL);
 const db = mongoose.connection;
 db.once('open', () => console.log('Connected to the Database'));
 // Mongo Debugging
-// if (process.env.NODE_ENV === 'development') {
-//   mongoose.set('debug', true);
-// }
+if (process.env.NODE_ENV === 'development') {
+  mongoose.set('debug', true);
+}
 
 /*
   Configure Middleware
@@ -106,6 +106,7 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  console.log(err);
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -13,7 +13,7 @@ passport.use(
     },
     function(token, tokenSecret, profile, done) {
       const searchQuery = {
-        id: profile.id,
+        twitterID: profile.id,
       };
 
       let profilePicture;
@@ -22,7 +22,7 @@ passport.use(
       }
       // Customize your User
       const updates = {
-        id: profile.id,
+        twitterID: profile.id,
         username: profile.username,
         profilePicture,
         pictures: [],
@@ -40,7 +40,6 @@ passport.use(
         user
       ) {
         if (err) {
-          console.log(err);
           return done(err);
         } else {
           return done(null, user);

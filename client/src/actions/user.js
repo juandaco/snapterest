@@ -1,6 +1,9 @@
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
-export const ADD_USER_PICTURE = 'ADD_USER_PICTURE ';
+export const ADD_USER_PICTURE = 'ADD_USER_PICTURE';
+export const REMOVE_USER_PICTURE = 'REMOVE_USER_PICTURE';
+export const ADD_LIKED = 'ADD_LIKED';
+export const REMOVE_LIKED = 'REMOVE_LIKED';
 
 export const loginUser = user => ({
   type: LOGIN_USER,
@@ -11,7 +14,39 @@ export const logoutUser = () => ({
   type: LOGOUT_USER,
 });
 
-export const addUserSnap = snap => ({
+export const addUserPicture = picture => ({
   type: ADD_USER_PICTURE,
-  snap,
+  picture,
 });
+
+export const removeUserPicture = id => ({
+  type: REMOVE_USER_PICTURE,
+  id,
+});
+
+export const addLiked = id => ({
+  type: ADD_LIKED,
+  id,
+});
+
+export const removeLiked = id => ({
+  type: REMOVE_LIKED,
+  id,
+});
+
+/*
+  Async Actions
+*/
+export const getUserSession = () => dispatch => {
+  return fetch(`api/users/current`, {
+    accept: 'application/json',
+    credentials: 'include', 
+  })
+    .then(body => body.json())
+    .then(user => {
+      delete user._id;
+      delete user.__v;
+      dispatch(loginUser(user));
+    })
+    .catch(err => console.log(err));
+};

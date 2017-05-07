@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Customize to your Application Needs
 const User = new Schema({
-  id: Number,
+  twitterID: String,
   username: String,
   profilePicture: String,
   pictures: [{ type: Schema.Types.ObjectId, ref: 'Picture' }],
