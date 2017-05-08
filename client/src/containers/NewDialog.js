@@ -11,9 +11,45 @@ class NewDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pictureURL: '',
+      url: '',
+      description: '',
     };
   }
+
+  handleUrlChange = e => {
+    this.setState({
+      url: e.target.value,
+    });
+  };
+
+  handleDescriptionChange = e => {
+    this.setState({
+      description: e.target.value,
+    });
+  };
+
+  handleAddPicture = () => {
+    this.props.closeDialog();
+    const { url, description } = this.state;
+    const picture = {
+      url,
+      description,
+    };
+    // Input Validation
+    //
+    this.props.addPicture(picture);
+    // Clean Up State
+    this.setState({
+      url: '',
+      description: '',
+    });
+  };
+
+  handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      this.handleAddPicture();
+    }
+  };
 
   render() {
     const { displayDialog, closeDialog } = this.props;
@@ -21,7 +57,7 @@ class NewDialog extends Component {
       <Modal
         show={displayDialog}
         onHide={closeDialog}
-        style={{ 
+        style={{
           width: '100vw',
           height: '100vh',
         }}
@@ -38,17 +74,30 @@ class NewDialog extends Component {
             <form>
               <FormGroup controlId="formBasicText">
                 <ControlLabel>Picture URL</ControlLabel>
-                <FormControl type="text" placeholder="Any valid URL works..." />
+                <FormControl
+                  type="text"
+                  value={this.state.url}
+                  onChange={this.handleUrlChange}
+                  onKeyPress={this.handleKeyPress}
+                  placeholder="Any valid URL works..."
+                />
                 <ControlLabel style={{ marginTop: 15 }}>
                   Description
                 </ControlLabel>
                 <FormControl
                   type="text"
+                  value={this.state.description}
+                  onChange={this.handleDescriptionChange}
+                  onKeyPress={this.handleKeyPress}
                   placeholder="Add a cool description..."
                 />
               </FormGroup>
               <div style={{ width: '100%', height: 32, paddingTop: 5 }}>
-                <Button style={{ float: 'right' }} bsStyle="primary">
+                <Button
+                  style={{ float: 'right' }}
+                  bsStyle="primary"
+                  onClick={this.handleAddPicture}
+                >
                   Add
                 </Button>
                 <Button

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserSession, sendLogout } from '../actions/user';
+import { addPicture } from '../actions/pictures';
 import { showDialog, hideDialog } from '../actions/ui';
 import AppBar from '../components/AppBar';
 import Gallery from './Gallery';
@@ -48,6 +49,7 @@ class App extends Component {
       displayDialog,
       showDialog,
       closeDialog,
+      addPicture,
     } = this.props;
     return (
       <div className="modal-container">
@@ -59,7 +61,11 @@ class App extends Component {
           showDialog={showDialog}
         />
         <Gallery />
-        <NewDialog displayDialog={displayDialog} closeDialog={closeDialog} />
+        <NewDialog
+          displayDialog={displayDialog}
+          closeDialog={closeDialog}
+          addPicture={addPicture}
+        />
       </div>
     );
   }
@@ -83,6 +89,9 @@ export default connect(
     },
     closeDialog() {
       dispatch(hideDialog());
+    },
+    addPicture(picture) {
+      dispatch(addPicture(picture));
     },
   }),
 )(App);

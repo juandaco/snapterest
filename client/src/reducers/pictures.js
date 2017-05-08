@@ -7,9 +7,15 @@ import {
   UNLIKE_PICTURE,
 } from '../actions/pictures';
 
-const pictures = (state = {}, action) => {
-  switch(action) {
-    case FETCH_PICTURES: 
+const pictures = (
+  state = {
+    isFetching: false,
+    items: [],
+  },
+  action,
+) => {
+  switch (action.type) {
+    case FETCH_PICTURES:
       return {
         ...state,
         isFetching: true,
@@ -20,9 +26,11 @@ const pictures = (state = {}, action) => {
         items: action.pictures,
       };
     case ADD_PICTURE:
+      let newItems = state.items.slice();
+      newItems.push(action.picture);
       return {
         ...state,
-        items: [...state.items, action.picture],
+        items: newItems,
       };
     case REMOVE_PICTURE:
       return {
@@ -37,7 +45,7 @@ const pictures = (state = {}, action) => {
             picture.likes++;
           }
           return picture;
-        })
+        }),
       };
     case UNLIKE_PICTURE:
       return {
@@ -47,9 +55,9 @@ const pictures = (state = {}, action) => {
             picture.likes--;
           }
           return picture;
-        })
+        }),
       };
-    default: 
+    default:
       return state;
   }
 };
