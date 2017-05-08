@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserSession, sendLogout } from '../actions/user';
-import { sendAddPicture } from '../actions/pictures';
+import { sendFetchPictures, sendAddPicture } from '../actions/pictures';
 import { showDialog, hideDialog } from '../actions/ui';
 import AppBar from '../components/AppBar';
 import Gallery from './Gallery';
@@ -10,6 +10,7 @@ import NewDialog from './NewDialog';
 class App extends Component {
   componentDidMount() {
     this.props.getUserSession();
+    this.props.getPictures();
   }
 
   loginUser = () => {
@@ -80,6 +81,9 @@ export default connect(
   dispatch => ({
     getUserSession() {
       dispatch(getUserSession());
+    },
+    getPictures() {
+      dispatch(sendFetchPictures());
     },
     logout() {
       dispatch(sendLogout());

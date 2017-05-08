@@ -39,12 +39,17 @@ export const unlikePicture = id => ({
 /*
   Async Actions
 */
-// export const sendFetchPictures = pictures => dispatch => {
-//   return fetch(``)
-//     .then(body => body.json())
-//     .then(resp => {})
-//     .catch(err => console.log(err));
-// };
+export const sendFetchPictures = pictures => dispatch => {
+  dispatch(fetchPictures());
+  return fetch(`/api/pictures`)
+    .then(body => body.json())
+    .then(resp => {
+      if (resp.message) {
+        dispatch(receivePictures(resp.pictures));
+      }
+    })
+    .catch(err => console.log(err));
+};
 
 export const sendAddPicture = picture => dispatch => {
   const request = new Request(`/api/pictures/`, {

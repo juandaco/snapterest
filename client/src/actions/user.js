@@ -19,9 +19,9 @@ export const addUserPicture = pictureID => ({
   pictureID,
 });
 
-export const removeUserPicture = id => ({
+export const removeUserPicture = pictureID => ({
   type: REMOVE_USER_PICTURE,
-  id,
+  pictureID,
 });
 
 export const addLiked = id => ({

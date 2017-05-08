@@ -29,7 +29,7 @@ const user = (state = defaultUserState, action) => {
     case REMOVE_USER_PICTURE:
       return {
         ...state,
-        pictures: state.pictures.filter(picture => picture.id === action.id),
+        pictures: state.pictures.filter(picture => picture._id === action.pictureID),
       };
     default:
       return state;
