@@ -1,7 +1,7 @@
 require('dotenv').config();
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
-const Users = require('../models/users');
+const User = require('../models/user');
 const passportUserSetup = require('./passportUserSetup');
 
 passport.use(
@@ -35,7 +35,7 @@ passport.use(
       };
 
       // update the user if s/he exists or add a new user
-      Users.findOneAndUpdate(searchQuery, updates, options, function(
+      User.findOneAndUpdate(searchQuery, updates, options, function(
         err,
         user
       ) {

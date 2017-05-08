@@ -20,9 +20,11 @@ const user = (state = defaultUserState, action) => {
     case LOGOUT_USER:
       return defaultUserState;
     case ADD_USER_PICTURE:
+      let newPictures = state.pictures.slice();
+      newPictures.push(action.pictureID);
       return {
         ...state,
-        pictures: [...state.pictures, action.picture],
+        pictures: newPictures,
       };
     case REMOVE_USER_PICTURE:
       return {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserSession, sendLogout } from '../actions/user';
-import { addPicture } from '../actions/pictures';
+import { sendAddPicture } from '../actions/pictures';
 import { showDialog, hideDialog } from '../actions/ui';
 import AppBar from '../components/AppBar';
 import Gallery from './Gallery';
@@ -91,7 +91,7 @@ export default connect(
       dispatch(hideDialog());
     },
     addPicture(picture) {
-      dispatch(addPicture(picture));
+      dispatch(sendAddPicture(picture));
     },
   }),
 )(App);

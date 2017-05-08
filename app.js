@@ -18,6 +18,7 @@ const MongoStore = require('connect-mongo')(session);
 */
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
+const picturesRouter = require('./routes/pictures');
 
 /*
   Initialize Express App based on Environment
@@ -49,9 +50,9 @@ mongoose.connect(process.env.MONGO_URL);
 const db = mongoose.connection;
 db.once('open', () => console.log('Connected to the Database'));
 // Mongo Debugging
-if (process.env.NODE_ENV === 'development') {
-  mongoose.set('debug', true);
-}
+// if (process.env.NODE_ENV === 'development') {
+//   mongoose.set('debug', true);
+// }
 
 /*
   Configure Middleware
@@ -77,6 +78,7 @@ app.use(passport.session());
 */
 app.use('/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/pictures', picturesRouter);
 
 /*
   Serve the Single Page App in Production only

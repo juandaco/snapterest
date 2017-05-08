@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const Picture = new Schema({
   url: String,
-  legend: String,
+  description: String,
   likes: Number,
   created_by: { type: Schema.Types.ObjectId, ref: 'User' },
 });

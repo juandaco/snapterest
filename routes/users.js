@@ -1,10 +1,10 @@
 const express = require('express');
 const usersRouter = express.Router();
-const Users = require('../models/users');
+const User = require('../models/user');
 
 usersRouter.get('/current', function(req, res, next) {
   if (req.isAuthenticated()) {
-    Users.findById({ _id: req.user._id }, function(err, user) {
+    User.findById({ _id: req.user._id }, function(err, user) {
       if (err) throw err;
       res.json({
         message: 'User',

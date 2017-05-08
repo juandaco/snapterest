@@ -1,3 +1,5 @@
+import { addUserPicture } from './user';
+
 export const FETCH_PICTURES = 'FETCH_PICTURES';
 export const RECEIVE_PICTURES = 'RECEIVE_PICTURES';
 export const ADD_PICTURE = 'ADD_PICTURE';
@@ -43,3 +45,23 @@ export const unlikePicture = id => ({
 //     .then(resp => {})
 //     .catch(err => console.log(err));
 // };
+
+export const sendAddPicture = picture => dispatch => {
+  const request = new Request(`/api/pictures/`, {
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(picture),
+    credentials: 'include',
+  });
+  return fetch(request)
+    .then(body => body.json())
+    .then(resp => {
+      if (resp.message) {
+        dispatch(addPicture(resp.picture));
+        dispatch(addUserPicture(resp.picture._id));
+      }
+    })
+    .catch(err => console.log(err));
+};

@@ -14,9 +14,9 @@ export const logoutUser = () => ({
   type: LOGOUT_USER,
 });
 
-export const addUserPicture = picture => ({
+export const addUserPicture = pictureID => ({
   type: ADD_USER_PICTURE,
-  picture,
+  pictureID,
 });
 
 export const removeUserPicture = id => ({

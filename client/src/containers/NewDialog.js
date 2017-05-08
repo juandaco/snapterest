@@ -56,8 +56,10 @@ class NewDialog extends Component {
       };
       // Input Validation
       this.props.addPicture(picture);
-      // Clean Up State
-      this.clearState();
+      // The Timeout Prevents conflicting 'sent' state
+      setTimeout(() => {
+        this.clearState();
+      }, 500);
     }
   };
 
