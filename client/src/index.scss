@@ -1,3 +1,6 @@
+a {
+  outline: none;
+}
 
 .nav-title {
   font-family: 'Berkshire Swash', cursive;
@@ -11,28 +14,35 @@
   }
 }
 
+.modal-content {
+  border: 0 solid #999;
+  border: 0 solid rgba(0,0,0,0.2);
+}
+
 .grid-container {
   width: 100vw;
   height: 100vh;
   margin-top: -20px;
 
-  background-color:#dcdcdc;
+  background-color: #dcdcdc;
 }
 
 #username {
   // display: inline-block;
   font-family: 'Love Ya Like A Sister', cursive;
   // font-size: 12px;
+
   position: absolute;
-  right: 18vw;
   top: 16px;
+  right: 18vw;
+
   color: grey;
 }
 
 
 @media (max-width: 992px) {
   #username {
-    right: 23vw; 
+    right: 23vw;
   }
 }
 
@@ -44,6 +54,6 @@
 
 @media (max-width: 380px) {
   #username {
-    display: none; 
+    display: none;
   }
 }

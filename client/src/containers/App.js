@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserSession, sendLogout } from '../actions/user';
+import { showDialog, hideDialog } from '../actions/ui';
 import AppBar from '../components/AppBar';
-import Grid from './Grid';
+import Gallery from './Gallery';
+import NewDialog from './NewDialog';
 
 class App extends Component {
   componentDidMount() {
@@ -39,16 +41,25 @@ class App extends Component {
   };
 
   render() {
-    const { username, isUserLogged, logout } = this.props;
+    const {
+      username,
+      isUserLogged,
+      logout,
+      displayDialog,
+      showDialog,
+      closeDialog,
+    } = this.props;
     return (
-      <div>
-        <AppBar 
+      <div className="modal-container">
+        <AppBar
           username={username}
           isUserLogged={isUserLogged}
           loginUser={this.loginUser}
           logout={logout}
+          showDialog={showDialog}
         />
-        <Grid />
+        <Gallery />
+        <NewDialog displayDialog={displayDialog} closeDialog={closeDialog} />
       </div>
     );
   }
@@ -58,6 +69,7 @@ export default connect(
   state => ({
     username: state.user.username,
     isUserLogged: Boolean(state.user.username),
+    displayDialog: state.dialog,
   }),
   dispatch => ({
     getUserSession() {
@@ -66,6 +78,11 @@ export default connect(
     logout() {
       dispatch(sendLogout());
     },
-    getPictures() {},
+    showDialog() {
+      dispatch(showDialog());
+    },
+    closeDialog() {
+      dispatch(hideDialog());
+    },
   }),
 )(App);
