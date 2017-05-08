@@ -3,9 +3,11 @@ import {
   Modal,
   FormGroup,
   FormControl,
+  HelpBlock,
   ControlLabel,
   Button,
 } from 'react-bootstrap';
+import { isURL } from 'validator';
 
 class NewDialog extends Component {
   constructor(props) {
@@ -13,8 +15,17 @@ class NewDialog extends Component {
     this.state = {
       url: '',
       description: '',
+      sent: false,
     };
   }
+
+  clearState = () => {
+    this.state = {
+      url: '',
+      description: '',
+      sent: false,
+    };
+  };
 
   handleUrlChange = e => {
     this.setState({
@@ -28,35 +39,53 @@ class NewDialog extends Component {
     });
   };
 
-  handleAddPicture = () => {
-    this.props.closeDialog();
-    const { url, description } = this.state;
-    const picture = {
-      url,
-      description,
-    };
-    // Input Validation
-    //
-    this.props.addPicture(picture);
-    // Clean Up State
-    this.setState({
-      url: '',
-      description: '',
-    });
-  };
-
   handleKeyPress = e => {
     if (e.key === 'Enter') {
       this.handleAddPicture();
     }
   };
 
+  handleAddPicture = () => {
+    this.setState({ sent: true });
+    const { url, description } = this.state;
+    if (this.isFormValid()) {
+      this.props.closeDialog();
+      const picture = {
+        url,
+        description,
+      };
+      // Input Validation
+      this.props.addPicture(picture);
+      // Clean Up State
+      this.clearState();
+    }
+  };
+
+
+  isFormValid = () => {
+    if (isURL(this.state.url)) {
+      return true;
+    }
+    return false;
+  };
+
+  getValidationState = () => {
+    if (!this.isFormValid() && this.state.sent) {
+      return 'error';
+    }
+  };
+
+  handleClose = () => {
+    this.props.closeDialog();
+    this.clearState();
+  };
+
   render() {
-    const { displayDialog, closeDialog } = this.props;
+    const { displayDialog } = this.props;
     return (
       <Modal
         show={displayDialog}
-        onHide={closeDialog}
+        onHide={this.handleClose}
         style={{
           width: '100vw',
           height: '100vh',
@@ -72,7 +101,10 @@ class NewDialog extends Component {
           <Modal.Body>
             <Modal.Title style={{ marginBottom: 20 }}>Add New Snap</Modal.Title>
             <form>
-              <FormGroup controlId="formBasicText">
+              <FormGroup
+                controlId="new-picture"
+                validationState={this.getValidationState()}
+              >
                 <ControlLabel>Picture URL</ControlLabel>
                 <FormControl
                   type="text"
@@ -81,6 +113,10 @@ class NewDialog extends Component {
                   onKeyPress={this.handleKeyPress}
                   placeholder="Any valid URL works..."
                 />
+                <FormControl.Feedback />
+                {this.state.sent
+                  ? <HelpBlock>Please enter a valid URL</HelpBlock>
+                  : null}
                 <ControlLabel style={{ marginTop: 15 }}>
                   Description
                 </ControlLabel>
@@ -102,7 +138,7 @@ class NewDialog extends Component {
                 </Button>
                 <Button
                   style={{ float: 'right', marginRight: 7 }}
-                  onClick={closeDialog}
+                  onClick={this.handleClose}
                 >
                   Close
                 </Button>

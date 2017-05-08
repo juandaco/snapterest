@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Masonry from 'react-masonry-component';
+// import Masonry from 'react-masonry-component';
 
-var masonryOptions = {
-  transitionDuration: 0,
-};
+// var masonryOptions = {
+//   transitionDuration: 0,
+// };
 
 class Gallery extends Component {
   componentDidMount() {}
