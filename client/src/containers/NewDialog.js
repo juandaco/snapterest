@@ -49,7 +49,7 @@ class NewDialog extends Component {
     this.setState({ sent: true });
     const { url, description } = this.state;
     if (this.isFormValid()) {
-      this.props.closeDialog();
+      this.props.closeNewDialog();
       const picture = {
         url,
         description,
@@ -78,15 +78,15 @@ class NewDialog extends Component {
   };
 
   handleClose = () => {
-    this.props.closeDialog();
+    this.props.closeNewDialog();
     this.clearState();
   };
   
   render() {
-    const { displayDialog } = this.props;
+    const { displayNewDialog } = this.props;
     return (
       <Modal
-        show={displayDialog}
+        show={displayNewDialog}
         onHide={this.handleClose}
         style={{
           width: '100vw',

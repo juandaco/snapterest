@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Sax Mono';
+
+  src: url(/fonts/saxmono.ttf);
+}
+
 a:focus {
   outline: none;
 }
@@ -166,5 +172,43 @@ a:focus {
     border-radius: 50%;
     background-color: rgb(255, 64, 129);
     // background-color: #31b0d5;
+  }
+}
+
+.about-dialog {
+  margin-top: 150px;
+
+  text-align: center;
+}
+
+#syntart-logo {
+  font-family: 'Shadows Into Light', cursive;
+
+  text-decoration: none;
+
+  outline: none;
+  text-shadow: 3px 3px 9px rgba(0, 0, 0, 0.3), 2px 3px rgba(0, 0, 0, 0.1);
+
+
+  h1 {
+    font-size: 5em;
+
+    margin-top: 30px;
+    margin-bottom: 40px;
+
+    transform: rotate(-13deg);
+
+    color: #337ab7;
+  }
+}
+
+#freecodecamp-logo {
+  font-family: 'Sax Mono';
+
+  text-decoration: none;
+
+  color: darkgreen;
+  h2 {
+    margin-bottom: 30px;
   }
 }

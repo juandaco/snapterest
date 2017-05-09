@@ -33,7 +33,7 @@ class SnapCard extends Component {
     return (
       <div className="snap-card">
         <Image
-          src={!this.state.imageError ? picture.url : '/logos/camera_logo.svg'}
+          src={!this.state.imageError ? picture.url : '/logos/not_found.svg'}
           width="300px"
           rounded
           onError={this.handleImageError}

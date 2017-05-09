@@ -3,9 +3,17 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const AppBar = ({ username, isUserLogged, loginUser, logout, showDialog }) => (
+const AppBar = ({
+  username,
+  isUserLogged,
+  loginUser,
+  logout,
+  showNewDialog,
+  showAboutDialog,
+}) => (
   <Navbar>
     <Navbar.Header>
+
       <Link to="/">
         <Navbar.Brand>
           <div className="nav-title">
@@ -16,8 +24,11 @@ const AppBar = ({ username, isUserLogged, loginUser, logout, showDialog }) => (
         </Navbar.Brand>
       </Link>
       <Navbar.Toggle />
+
     </Navbar.Header>
+
     <Navbar.Collapse>
+
       <Nav>
         <LinkContainer to="/" exact={true} isActive={() => false}>
           <NavItem>
@@ -26,6 +37,7 @@ const AppBar = ({ username, isUserLogged, loginUser, logout, showDialog }) => (
             All
           </NavItem>
         </LinkContainer>
+
         {isUserLogged
           ? <LinkContainer to="/mysnaps" exact={true} isActive={() => false}>
               <NavItem>
@@ -35,16 +47,23 @@ const AppBar = ({ username, isUserLogged, loginUser, logout, showDialog }) => (
               </NavItem>
             </LinkContainer>
           : null}
+
         {isUserLogged
-          ? <NavItem onClick={showDialog}>
+          ? <NavItem onClick={showNewDialog}>
               <i className="fa fa-plus-circle" aria-hidden="true" />
               {' '}
               New
             </NavItem>
           : null}
-      </Nav>
-      <Nav pullRight>
 
+        <NavItem onClick={showAboutDialog}>
+          <i className="fa fa-info-circle" aria-hidden="true" />
+          {' '}
+          About
+        </NavItem>
+      </Nav>
+
+      <Nav pullRight>
         {isUserLogged
           ? <NavItem title="Logout" onClick={() => logout()}>
               <i className="fa fa-sign-out" aria-hidden="true" />

@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserSession, sendLogout } from '../actions/user';
 import { sendFetchPictures, sendAddPicture } from '../actions/pictures';
-import { showDialog, hideDialog } from '../actions/ui';
+import {
+  showNewDialog,
+  hideNewDialog,
+  showAboutDialog,
+  hideAboutDialog,
+} from '../actions/ui';
 import AppBar from '../components/AppBar';
 import Gallery from './Gallery';
 import NewDialog from './NewDialog';
+import AboutDialog from '../components/AboutDialog';
 
 class App extends Component {
   componentDidMount() {
@@ -45,17 +51,21 @@ class App extends Component {
   handleLogout = () => {
     this.props.history.push('/');
     this.props.logout();
-  }
+  };
 
   render() {
     const {
       username,
       isUserLogged,
-      displayDialog,
-      showDialog,
-      closeDialog,
+      displayNewDialog,
+      showNewDialog,
+      closeNewDialog,
       addPicture,
+      displayAboutDialog,
+      showAboutDialog,
+      closeAboutDialog,
     } = this.props;
+
     return (
       <div className="modal-container">
         <AppBar
@@ -63,13 +73,21 @@ class App extends Component {
           isUserLogged={isUserLogged}
           loginUser={this.loginUser}
           logout={this.handleLogout}
-          showDialog={showDialog}
+          showNewDialog={showNewDialog}
+          showAboutDialog={showAboutDialog}
         />
+
         <Gallery path={window.location.pathname} />
+
         <NewDialog
-          displayDialog={displayDialog}
-          closeDialog={closeDialog}
+          displayNewDialog={displayNewDialog}
+          closeNewDialog={closeNewDialog}
           addPicture={addPicture}
+        />
+
+        <AboutDialog 
+          displayAboutDialog={displayAboutDialog}
+          closeAboutDialog={closeAboutDialog}
         />
       </div>
     );
@@ -80,7 +98,8 @@ export default connect(
   state => ({
     username: state.user.username,
     isUserLogged: Boolean(state.user.username),
-    displayDialog: state.dialog,
+    displayNewDialog: state.ui.newDialog,
+    displayAboutDialog: state.ui.aboutDialog,
   }),
   dispatch => ({
     getUserSession() {
@@ -92,11 +111,17 @@ export default connect(
     logout() {
       dispatch(sendLogout());
     },
-    showDialog() {
-      dispatch(showDialog());
+    showNewDialog() {
+      dispatch(showNewDialog());
     },
-    closeDialog() {
-      dispatch(hideDialog());
+    closeNewDialog() {
+      dispatch(hideNewDialog());
+    },
+    showAboutDialog() {
+      dispatch(showAboutDialog());
+    },
+    closeAboutDialog() {
+      dispatch(hideAboutDialog());
     },
     addPicture(picture) {
       dispatch(sendAddPicture(picture));
