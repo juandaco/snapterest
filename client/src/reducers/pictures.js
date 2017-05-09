@@ -35,7 +35,7 @@ const pictures = (
     case REMOVE_PICTURE:
       return {
         ...state,
-        items: state.items.filter(picture => picture._id === action.id),
+        items: state.items.filter(picture => picture._id !== action.id),
       };
     case LIKE_PICTURE:
       return {

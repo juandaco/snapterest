@@ -1,37 +1,65 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-// import Masonry from 'react-masonry-component';
+import Masonry from 'react-masonry-component';
+import SnapCard from '../components/SnapCard';
+import { sendRemovePicture, sendLikePicture } from '../actions/pictures';
 
-// var masonryOptions = {
-//   transitionDuration: 0,
-// };
+var masonryOptions = {
+  transitionDuration: 1,
+};
 
-class Gallery extends Component {
-  componentDidMount() {}
-
-  render() {
-  
-    /*const childElements = this.props.elements.map(function(element) {
-      return (
-        <li className="image-element-class">
-          <img src={element.src} />
-        </li>
-      );
-    });*/
+const Gallery = ({
+  isFetching,
+  pictures,
+  liked,
+  userPics,
+  likePicture,
+  removePicture,
+}) => {
+  const picCards = pictures.map(pic => {
+    const owned = userPics.includes(pic._id);
+    const userLiked = liked.includes(pic._id);
     return (
-      <div className="grid-container">
-        {/*<Masonry
-          className={'my-gallery-class'} // default ''
-          elementType={'ul'} // default 'div'
-          options={masonryOptions} // default {}
-          disableImagesLoaded={false} // default false
-          updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
-        >
-          {childElements}
-        </Masonry>*/}
-      </div>
+      <SnapCard
+        key={pic._id}
+        picture={pic}
+        liked={userLiked}
+        owned={owned}
+        likePicture={likePicture}
+        removePicture={removePicture}
+      />
     );
-  }
-}
+  });
+  return (
+    <div className="gallery-container">
+      {isFetching
+        ? <i id="loading-cog" className="fa fa-cog fa-spin fa-5x fa-fw" />
+        : null}
+      <Masonry
+        className="masonry-container"
+        options={masonryOptions}
+        disableImagesLoaded={false} // default false
+        updateOnEachImageLoad={true} // default false and works only if disableImagesLoaded is false
+      >
+        {picCards}
+      </Masonry>
+    </div>
+  );
+};
 
-export default connect(null)(Gallery);
+export default connect(
+  (state = { isFetching: true, items: [] }) => ({
+    isFetching: state.pictures.isFetching,
+    pictures: state.pictures.items,
+    liked: state.user.liked,
+    userPics: state.user.pictures,
+  }),
+  dispatch => ({
+    removePicture(picture) {
+      dispatch(sendRemovePicture(picture));
+    },
+    likePicture(pictureID) {
+      dispatch(sendLikePicture(pictureID));
+    },
+  }),
+)(Gallery);

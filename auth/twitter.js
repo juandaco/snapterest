@@ -25,8 +25,6 @@ passport.use(
         twitterID: profile.id,
         username: profile.username,
         profilePicture,
-        pictures: [],
-        likedPictures: [],
       };
 
       const options = {

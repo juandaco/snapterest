@@ -81,7 +81,7 @@ class NewDialog extends Component {
     this.props.closeDialog();
     this.clearState();
   };
-
+  
   render() {
     const { displayDialog } = this.props;
     return (
@@ -113,6 +113,7 @@ class NewDialog extends Component {
                   value={this.state.url}
                   onChange={this.handleUrlChange}
                   onKeyPress={this.handleKeyPress}
+                  autoFocus
                   placeholder="Any valid URL works..."
                 />
                 <FormControl.Feedback />

@@ -3,6 +3,8 @@ import {
   LOGOUT_USER,
   ADD_USER_PICTURE,
   REMOVE_USER_PICTURE,
+  ADD_USER_LIKED,
+  REMOVE_USER_LIKED,
 } from '../actions/user';
 import defaultUserState from '../helpers/defaultUserState';
 
@@ -29,8 +31,15 @@ const user = (state = defaultUserState, action) => {
     case REMOVE_USER_PICTURE:
       return {
         ...state,
-        pictures: state.pictures.filter(picture => picture._id === action.pictureID),
+        pictures: state.pictures.filter(picture => picture._id !== action.pictureID),
       };
+    case ADD_USER_LIKED:
+      let newLiked = state.liked.slice();
+      newLiked.push(action.pictureID);
+      return {
+        ...state,
+        liked: newLiked
+      }
     default:
       return state;
   }

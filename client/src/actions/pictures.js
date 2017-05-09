@@ -1,4 +1,9 @@
-import { addUserPicture } from './user';
+import { 
+  addUserPicture,
+  removeUserPicture,
+  addUserLiked,
+  // removeUserLiked,
+} from './user';
 
 export const FETCH_PICTURES = 'FETCH_PICTURES';
 export const RECEIVE_PICTURES = 'RECEIVE_PICTURES';
@@ -67,6 +72,46 @@ export const sendAddPicture = picture => dispatch => {
         dispatch(addPicture(resp.picture));
         dispatch(addUserPicture(resp.picture._id));
       }
+    })
+    .catch(err => console.log(err));
+};
+
+export const sendRemovePicture = pictureID => dispatch => {
+  const request = new Request(`/api/pictures/${pictureID}`, {
+    method: 'DELETE',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    credentials: 'include',
+  });
+  return fetch(request)
+    .then(body => body.json())
+    .then(resp => {
+      if (resp.message) {
+        dispatch(removePicture(pictureID));
+        dispatch(removeUserPicture(pictureID));
+      }
+
+    })
+    .catch(err => console.log(err));
+};
+
+export const sendLikePicture = pictureID => dispatch => {
+  const request = new Request(`/api/pictures/${pictureID}?like=true`, {
+    method: 'PUT',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    credentials: 'include',
+  });
+  return fetch(request)
+    .then(body => body.json())
+    .then(resp => {
+      if (resp.message) {
+        dispatch(likePicture(pictureID));
+        dispatch(addUserLiked(pictureID));
+      }
+
     })
     .catch(err => console.log(err));
 };

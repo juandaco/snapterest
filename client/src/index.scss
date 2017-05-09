@@ -19,14 +19,6 @@ a:focus {
   border: 0 solid rgba(0,0,0,0.2);
 }
 
-.grid-container {
-  width: 100vw;
-  height: 100vh;
-  margin-top: -20px;
-
-  background-color: #dcdcdc;
-}
-
 #username {
   // display: inline-block;
   font-family: 'Love Ya Like A Sister', cursive;
@@ -55,5 +47,110 @@ a:focus {
 @media (max-width: 380px) {
   #username {
     display: none;
+  }
+}
+
+.gallery-container {
+  width: 100vw;
+  margin-top: -20px;
+  padding: 20px 50px;
+  min-height: 94vh;
+
+  background-color: #dcdcdc;
+}
+@media (max-width: 800px) {
+  .gallery-container{
+    padding: 20px 0;
+  }
+}
+
+#loading-cog {
+  width: 100vw !important;
+  margin-top: 150px !important;
+}
+
+.snap-card {
+  z-index: 1;
+
+  margin: 5px;
+  padding: 5px 5px 50px 5px;
+
+  text-align: center;
+
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.snap-card > div > a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-width: 400px) {
+  .snap-card > img {
+    width: 93.5vw;
+  }
+}
+
+.snap-description {
+  width: 80%;
+  margin: 10px auto;
+
+  border-radius: 2px;
+  background-color: lightgrey;
+}
+
+.snap-avatar {
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  img {
+    width: 40px;
+  }
+  a {
+    font-size: 15px;
+
+    margin-left: 3px;
+  }
+}
+
+.snap-icons {
+  font-size: 16px;
+
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  i {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  i:hover {
+    font-size: 20px;
+  }
+}
+
+.snap-likes {
+  position: relative;
+
+  display: inline;
+
+  vertical-align: middle;
+  span {
+    font-size: 10px;
+    line-height: 1.7;
+
+    position: absolute;
+    top: -14px;
+    right: -7px;
+
+    width: 17px;
+    height: 17px;
+    padding-right: 1px;
+
+    color: white;
+    border-radius: 50%;
+    background-color: rgb(255, 64, 129);
   }
 }

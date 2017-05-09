@@ -2,8 +2,8 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const ADD_USER_PICTURE = 'ADD_USER_PICTURE';
 export const REMOVE_USER_PICTURE = 'REMOVE_USER_PICTURE';
-export const ADD_LIKED = 'ADD_LIKED';
-export const REMOVE_LIKED = 'REMOVE_LIKED';
+export const ADD_USER_LIKED = 'ADD_USER_LIKED';
+export const REMOVE_USER_LIKED = 'REMOVE_USER_LIKED';
 
 export const loginUser = user => ({
   type: LOGIN_USER,
@@ -24,14 +24,14 @@ export const removeUserPicture = pictureID => ({
   pictureID,
 });
 
-export const addLiked = id => ({
-  type: ADD_LIKED,
-  id,
+export const addUserLiked = pictureID => ({
+  type: ADD_USER_LIKED,
+  pictureID,
 });
 
-export const removeLiked = id => ({
-  type: REMOVE_LIKED,
-  id,
+export const removeUserLiked = pictureID => ({
+  type: REMOVE_USER_LIKED,
+  pictureID,
 });
 
 /*
@@ -40,7 +40,7 @@ export const removeLiked = id => ({
 export const getUserSession = () => dispatch => {
   return fetch(`api/users/current`, {
     accept: 'application/json',
-    credentials: 'include', 
+    credentials: 'include',
   })
     .then(body => body.json())
     .then(resp => {
@@ -56,7 +56,7 @@ export const getUserSession = () => dispatch => {
 export const sendLogout = () => dispatch => {
   return fetch(`api/users/logout`, {
     accept: 'application/json',
-    credentials: 'include', 
+    credentials: 'include',
   })
     .then(body => body.json())
     .then(resp => {
@@ -65,4 +65,4 @@ export const sendLogout = () => dispatch => {
       }
     })
     .catch(err => console.log(err));
-}
+};

@@ -52,4 +52,57 @@ picturesRouter.post('/', verifyUser, function(req, res) {
     .catch(err => console.log(err));
 });
 
+picturesRouter.delete('/:pictureID', verifyUser, function(req, res) {
+  const pictureID = req.params.pictureID;
+
+  // Remove from Pictures Collection
+  Picture.remove({ _id: pictureID })
+    // Remove from Users Collection
+    .then(() =>
+      User.updateMany({}, { $pull: { pictures: pictureID, liked: pictureID } })
+    )
+    .then(() =>
+      // Send answer
+      res.json({
+        message: 'Picture Removed',
+      })
+    )
+    .catch(err => console.log(err));
+});
+
+// LIKES
+picturesRouter.put('/:pictureID', verifyUser, function(req, res) {
+  const pictureID = req.params.pictureID;
+
+  if (req.query.like) {
+    Picture.updateOne({ _id: pictureID }, { $inc: { likes: 1 } })
+      .then(() =>
+        User.updateOne(
+          { _id: req.user._id },
+          { $addToSet: { liked: pictureID } }
+        )
+      )
+      .then(() =>
+        res.json({
+          message: 'Picture Liked',
+        })
+      )
+      .catch(err => console.log(err));
+  } else if (req.query.unlike) {
+    Picture.updateOne({ _id: pictureID }, { $inc: { likes: -1 } })
+      .then(() =>
+        User.updateOne(
+          { _id: req.user._id },
+          { $pull: { liked: pictureID } }
+        )
+      )
+      .then(() =>
+        res.json({
+          message: 'Picture Liked',
+        })
+      )
+      .catch(err => console.log(err));
+  }
+});
+
 module.exports = picturesRouter;
