@@ -37,6 +37,7 @@ class SnapCard extends Component {
           width="300px"
           rounded
           onError={this.handleImageError}
+          crossorigin="anonymous"
           alt={picture.description}
         />
         <div className="snap-description">{picture.description}</div>
