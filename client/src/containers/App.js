@@ -42,11 +42,15 @@ class App extends Component {
     );
   };
 
+  handleLogout = () => {
+    this.props.history.push('/');
+    this.props.logout();
+  }
+
   render() {
     const {
       username,
       isUserLogged,
-      logout,
       displayDialog,
       showDialog,
       closeDialog,
@@ -58,10 +62,10 @@ class App extends Component {
           username={username}
           isUserLogged={isUserLogged}
           loginUser={this.loginUser}
-          logout={logout}
+          logout={this.handleLogout}
           showDialog={showDialog}
         />
-        <Gallery />
+        <Gallery path={window.location.pathname} />
         <NewDialog
           displayDialog={displayDialog}
           closeDialog={closeDialog}

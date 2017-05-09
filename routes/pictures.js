@@ -3,6 +3,7 @@ const picturesRouter = express.Router();
 const Picture = require('../models/picture');
 const User = require('../models/user');
 const verifyUser = require('../middleware/verifyUser');
+const shuffleArray = require('../helpers/shuffleArray');
 
 picturesRouter.get('/', function(req, res) {
   Picture.find({}, { __v: false })
@@ -12,7 +13,7 @@ picturesRouter.get('/', function(req, res) {
     .then(pictures => {
       res.json({
         message: 'All Pictures',
-        pictures,
+        pictures: shuffleArray(pictures),
       });
     })
     .catch(err => console.log(err));
@@ -70,7 +71,6 @@ picturesRouter.delete('/:pictureID', verifyUser, function(req, res) {
     .catch(err => console.log(err));
 });
 
-// LIKES
 picturesRouter.put('/:pictureID', verifyUser, function(req, res) {
   const pictureID = req.params.pictureID;
 
@@ -91,10 +91,7 @@ picturesRouter.put('/:pictureID', verifyUser, function(req, res) {
   } else if (req.query.unlike) {
     Picture.updateOne({ _id: pictureID }, { $inc: { likes: -1 } })
       .then(() =>
-        User.updateOne(
-          { _id: req.user._id },
-          { $pull: { liked: pictureID } }
-        )
+        User.updateOne({ _id: req.user._id }, { $pull: { liked: pictureID } })
       )
       .then(() =>
         res.json({

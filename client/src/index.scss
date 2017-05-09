@@ -52,16 +52,26 @@ a:focus {
 
 .gallery-container {
   width: 100vw;
+  min-height: 94vh;
   margin-top: -20px;
   padding: 20px 50px;
-  min-height: 94vh;
+
+  text-align: center;
 
   background-color: #dcdcdc;
 }
 @media (max-width: 800px) {
-  .gallery-container{
+  .gallery-container {
     padding: 20px 0;
   }
+}
+
+#wall-title {
+  font-family: 'Berkshire Swash', cursive;
+  font-size: 3em;
+
+  margin-top: 15px;
+  margin-bottom: 30px;
 }
 
 #loading-cog {
@@ -84,7 +94,9 @@ a:focus {
 
 .snap-card > div > a {
   display: inline-block;
+
   text-decoration: none;
+
   color: inherit;
 }
 
@@ -117,17 +129,18 @@ a:focus {
 }
 
 .snap-icons {
-  font-size: 16px;
+  font-size: 20px;
 
   position: absolute;
   right: 10px;
   bottom: 5px;
   i {
-    margin-left: 10px;
+    margin-left: 15px;
+
     cursor: pointer;
   }
   i:hover {
-    font-size: 20px;
+    font-size: 25px;
   }
 }
 
@@ -152,5 +165,6 @@ a:focus {
     color: white;
     border-radius: 50%;
     background-color: rgb(255, 64, 129);
+    // background-color: #31b0d5;
   }
 }
