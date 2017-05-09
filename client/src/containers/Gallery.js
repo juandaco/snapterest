@@ -9,7 +9,7 @@ import {
 } from '../actions/pictures';
 
 const masonryOptions = {
-  transitionDuration: 1,
+  transitionDuration: 300,
 };
 
 const Gallery = ({
