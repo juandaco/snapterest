@@ -6,9 +6,6 @@
 # testing
 /coverage
 
-# build (Remove for production deployment)
-/build
-
 # remove CSS from development
 /src/*.css
 /src/*.css.map
