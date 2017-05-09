@@ -31,15 +31,22 @@ const user = (state = defaultUserState, action) => {
     case REMOVE_USER_PICTURE:
       return {
         ...state,
-        pictures: state.pictures.filter(picture => picture._id !== action.pictureID),
+        pictures: state.pictures.filter(
+          picture => picture._id !== action.pictureID,
+        ),
       };
     case ADD_USER_LIKED:
       let newLiked = state.liked.slice();
       newLiked.push(action.pictureID);
       return {
         ...state,
-        liked: newLiked
-      }
+        liked: newLiked,
+      };
+    case REMOVE_USER_LIKED:
+      return {
+        ...state,
+        liked: state.liked.filter(id => id !== action.pictureID),
+      };
     default:
       return state;
   }

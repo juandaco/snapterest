@@ -2,7 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 
-const SnapCard = ({ picture, liked, owned, likePicture, removePicture }) => {
+const SnapCard = ({
+  picture,
+  liked,
+  owned,
+  likePicture,
+  unlikePicture,
+  removePicture,
+}) => {
   // const min = 200;
   // const max = 370;
   // const rndWidth = Math.round(min + Math.random() * (max - min));
@@ -28,7 +35,11 @@ const SnapCard = ({ picture, liked, owned, likePicture, removePicture }) => {
       <div className="snap-icons">
         <div className="snap-likes">
           {liked
-            ? <i className="fa fa-star" aria-hidden="true" />
+            ? <i
+                className="fa fa-star"
+                aria-hidden="true"
+                onClick={() => unlikePicture(picture._id)}
+              />
             : <i
                 className="fa fa-star-o"
                 aria-hidden="true"

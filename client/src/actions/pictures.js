@@ -2,7 +2,7 @@ import {
   addUserPicture,
   removeUserPicture,
   addUserLiked,
-  // removeUserLiked,
+  removeUserLiked,
 } from './user';
 
 export const FETCH_PICTURES = 'FETCH_PICTURES';
@@ -110,6 +110,26 @@ export const sendLikePicture = pictureID => dispatch => {
       if (resp.message) {
         dispatch(likePicture(pictureID));
         dispatch(addUserLiked(pictureID));
+      }
+
+    })
+    .catch(err => console.log(err));
+};
+
+export const sendUnlikePicture = pictureID => dispatch => {
+  const request = new Request(`/api/pictures/${pictureID}?unlike=true`, {
+    method: 'PUT',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    credentials: 'include',
+  });
+  return fetch(request)
+    .then(body => body.json())
+    .then(resp => {
+      if (resp.message) {
+        dispatch(unlikePicture(pictureID));
+        dispatch(removeUserLiked(pictureID));
       }
 
     })

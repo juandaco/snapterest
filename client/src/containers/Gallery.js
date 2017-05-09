@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Masonry from 'react-masonry-component';
 import SnapCard from '../components/SnapCard';
-import { sendRemovePicture, sendLikePicture } from '../actions/pictures';
+import {
+  sendRemovePicture,
+  sendLikePicture,
+  sendUnlikePicture,
+} from '../actions/pictures';
 
 var masonryOptions = {
   transitionDuration: 1,
@@ -14,6 +18,7 @@ const Gallery = ({
   liked,
   userPics,
   likePicture,
+  unlikePicture,
   removePicture,
 }) => {
   const picCards = pictures.map(pic => {
@@ -26,6 +31,7 @@ const Gallery = ({
         liked={userLiked}
         owned={owned}
         likePicture={likePicture}
+        unlikePicture={unlikePicture}
         removePicture={removePicture}
       />
     );
@@ -60,6 +66,9 @@ export default connect(
     },
     likePicture(pictureID) {
       dispatch(sendLikePicture(pictureID));
+    },
+    unlikePicture(pictureID) {
+      dispatch(sendUnlikePicture(pictureID));
     },
   }),
 )(Gallery);
